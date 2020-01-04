@@ -28,17 +28,10 @@ public class MainController {
     @Value("${upload.path}") private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(@AuthenticationPrincipal User user, Map<String, Object> model) {
+    public String greeting(@AuthenticationPrincipal User user, Model model) {
 
-        String userName;
-
-        if (user == null) {
-            model.put("user", "No name");
-            return "greeting";
-        }
-
-        userName = userRepository.findByUsername(user.getUsername()).getUsername();
-        model.put("user", userName);
+        if(user != null)
+            model.addAttribute("user", user.getUsername());
 
         return "greeting";
     }

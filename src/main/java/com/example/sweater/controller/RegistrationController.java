@@ -31,6 +31,8 @@ public class RegistrationController {
             return "registration";
         }
 
+        model.addAttribute("message", "You should receive activation code on your email");
+
         return "redirect:/login";
     }
 
