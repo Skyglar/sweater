@@ -1,6 +1,6 @@
 create table hibernate_sequence (next_val bigint);
 
-INSERT INTO hibernate_sequence(next_val) VALUES (0);
+INSERT INTO hibernate_sequence(next_val) VALUES (2);
 
 create table message (
   id bigint not null,
