@@ -15,7 +15,7 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
-    @NotBlank(message = "Please fill the message")
+    @NotBlank(message = "Please enter a message")
     @Length(max = 2048, message = "Message is too long")
     private String text;
     @Length(max = 255, message = "Tag is too long")
@@ -46,10 +46,6 @@ public class Message {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getText() {

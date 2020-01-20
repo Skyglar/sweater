@@ -1,4 +1,5 @@
 <#macro login path isRegisterForm>
+
 <form action="${path}" method="post">
     <div class="form-group row">
         <label for="username" class="col-sm-2 col-form-label"> User Name : </label>
@@ -57,7 +58,7 @@
                 </#if>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-2 mr-5">
             <div class="g-recaptcha" data-sitekey="6Lf9bc0UAAAAAEOTZXaTONejktJLt1dLof0fk3yt"></div>
             <#if captchaError??>
                 <div class="alert alert-danger" role="alert">
@@ -68,15 +69,17 @@
     </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <#if !isRegisterForm><a href="/registration">Don't have account yet? Go for it!</a></#if>
-    <button type="submit" class="btn btn-primary mb-2"><#if !isRegisterForm>Sign In  <#else> Sign up</#if></button>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary mb-2"><#if !isRegisterForm>Sign In  <#else> Sign up</#if></button>
+    </div>
 </form>
 </#macro>
 
 <#macro logout>
     <div>
-        <form action="logout" method="post">
+        <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <button type="submit" class="btn btn-primary">Sign Out</button>
+            <button type="submit" class="btn btn-primary">Logout</button>
         </form>
     </div>
 </#macro>
