@@ -1,1 +1,1 @@
-update user set password = MD5(password);
+UPDATE user SET password = MD5(password);

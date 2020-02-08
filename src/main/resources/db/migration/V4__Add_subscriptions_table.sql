@@ -1,4 +1,4 @@
-create table user_subscriptions (
+CREATE TABLE user_subscriptions (
   channel_id BIGINT NOT NULL,
   subscriber_id BIGINT NOT NULL,
   PRIMARY KEY (channel_id, subscriber_id),

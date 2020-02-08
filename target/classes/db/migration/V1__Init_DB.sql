@@ -1,35 +1,35 @@
-create table hibernate_sequence (next_val bigint);
+CREATE TABLE hibernate_sequence (next_val BIGINT);
 
 INSERT INTO hibernate_sequence(next_val) VALUES (2);
 
-create table message (
-  id bigint not null,
-  filename varchar(255),
-  tag varchar(255),
-  text varchar(2048) not null,
-  user_id bigint,
-  primary key (id)
+CREATE TABLE message (
+  id BIGINT NOT NULL,
+  filename VARCHAR(255),
+  tag VARCHAR(255),
+  text VARCHAR(2048) NOT NULL,
+  user_id BIGINT,
+  PRIMARY KEY (id)
 );
 
-create table user (
-  id bigint not null,
-  activation_code varchar(255),
-  active bit not null,
-  email varchar(255),
-  password varchar(255) not null,
-  username varchar(255) not null,
-  primary key (id)
+CREATE TABLE user (
+  id BIGINT NOT NULL,
+  activation_code VARCHAR(255),
+  active BIT NOT NULL,
+  email VARCHAR(255),
+  password VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
 );
 
-create table user_role (
-  user_id bigint not null,
-  roles varchar(255)
+CREATE TABLE user_role (
+  user_id BIGINT NOT NULL,
+  roles VARCHAR(255)
 );
 
-alter table message
-  add constraint message_user_fk
-  foreign key (user_id) references user (id);
+ALTER TABLE message
+  ADD CONSTRAINT message_user_fk
+  FOREIGN KEY (user_id) REFERENCES user (id);
 
-alter table user_role
-  add constraint user_role_user_fk
-  foreign key (user_id) references user (id);
+ALTER TABLE user_role
+  ADD CONSTRAINT user_role_user_fk
+  FOREIGN KEY (user_id) REFERENCES user (id);
