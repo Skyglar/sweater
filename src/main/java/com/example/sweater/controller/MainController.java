@@ -3,6 +3,8 @@ package com.example.sweater.controller;
 
 import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
+import com.example.sweater.domain.dto.MessageDto;
+import com.example.sweater.domain.util.MessageHelper;
 import com.example.sweater.repository.MessageRepository;
 import com.example.sweater.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class MainController {
 
     @Autowired private MessageRepository messageRepository;
     @Autowired private MessageService messageService;
+
     @Value("${upload.path}") private String uploadPath;
 
     @GetMapping("/")
@@ -41,20 +44,18 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter,
-                       Model model,
-                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Message> page;
-
-        if (filter != null && !filter.isEmpty() ) {
-            page = messageRepository.findByTag(filter, pageable);
-        } else {
-            page = messageRepository.findAll(pageable);
-        }
+    public String main(
+            @RequestParam(required = false, defaultValue = "") String filter,
+            Model model,
+            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
+            @AuthenticationPrincipal User user
+    ) {
+        Page<MessageDto> page = messageService.messageList(pageable, filter, user);
 
         model.addAttribute("url", "/main");
         model.addAttribute("page", page);
         model.addAttribute("filter", filter);
+
         return "main";
     }
 
@@ -69,6 +70,7 @@ public class MainController {
 
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
             model.mergeAttributes(errorsMap);
             model.addAttribute("message", message);
         } else {
